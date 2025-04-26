@@ -1,0 +1,38 @@
+def fibonacci_subtract(score):
+    if score >= 18:
+        return score - 18
+    elif score >= 12:
+        return score - 12
+    elif score >= 5:
+        return score - 5
+    else:
+        return score
+
+def predict_tai_xiu(hot1, hot2, hot3, prev_result):
+    """
+    hot1, hot2, hot3: điểm 3 hột phiên hiện tại (int)
+    prev_result: 'tài' hoặc 'xỉu'
+    """
+    prev_value = 7 if prev_result.lower() == 'xỉu' else 3  # xỉu=7, tài=3 theo quy ước
+    total = hot1 + hot2 + hot3 + prev_value
+    result = fibonacci_subtract(total)
+
+    if result in [0, 2, 4, 6]:
+        return 'Xỉu'
+    elif result in [1, 3, 5, 7]:
+        return 'Tài'
+    else:
+        return 'Không xác định'
+
+def main():
+    print("Tool dự đoán Tài Xỉu theo công thức Fibonacci")
+    hot1 = int(input("Nhập điểm hột thứ nhất: "))
+    hot2 = int(input("Nhập điểm hột thứ hai: "))
+    hot3 = int(input("Nhập điểm hột thứ ba: "))
+    prev_result = input("Nhập kết quả phiên trước (tài/xỉu): ")
+
+    prediction = predict_tai_xiu(hot1, hot2, hot3, prev_result)
+    print(f"Dự đoán kết quả: {prediction}")
+
+if __name__ == "__main__":
+    main()
